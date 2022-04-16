@@ -41,6 +41,10 @@ var bodyParser = require("body-parser");
 var DataSource_1 = require("./data/DataSource");
 var User_1 = require("./data/entities/User");
 var routes_1 = require("./spec/routes");
+var path = require("path");
+var helmet_1 = require("helmet");
+var cors = require("cors");
+var express_rate_limit_1 = require("express-rate-limit");
 DataSource_1.DataSource.initialize()
     .then(function () { return __awaiter(void 0, void 0, void 0, function () {
     var app;
@@ -48,10 +52,25 @@ DataSource_1.DataSource.initialize()
         switch (_a.label) {
             case 0:
                 app = express();
+                // use middlewares
                 app.use(bodyParser.json());
+                app.use((0, helmet_1.default)());
+                app.use(cors());
+                app.use((0, express_rate_limit_1.default)({
+                    windowMs: 15 * 60 * 1000,
+                    max: 100, // limit each IP to 100 requests per windowMs
+                }));
                 // register routes
-                // setup express app here
                 (0, routes_1.RegisterRoutes)(app);
+                // register documentation routes
+                app.get("/swagger.json", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                    var fileDirectory;
+                    return __generator(this, function (_a) {
+                        fileDirectory = path.resolve(__dirname, ".", "spec/");
+                        res.sendFile("swagger.json", { root: fileDirectory });
+                        return [2 /*return*/];
+                    });
+                }); });
                 // start express server
                 app.listen(3000);
                 // insert new users for test
