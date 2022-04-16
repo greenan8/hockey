@@ -65,8 +65,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 var tsoa_1 = require("tsoa");
-var User_1 = require("../data/entities/User");
-var DataSource_1 = require("../data/DataSource");
+var User_1 = require("data/entities/User");
+var DataSource_1 = require("data/DataSource");
 var UsersController = /** @class */ (function (_super) {
     __extends(UsersController, _super);
     function UsersController() {
@@ -106,7 +106,7 @@ var UsersController = /** @class */ (function (_super) {
         (0, tsoa_1.Get)("{id}"),
         __param(0, (0, tsoa_1.Path)()),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Number]),
+        __metadata("design:paramtypes", [String]),
         __metadata("design:returntype", Promise)
     ], UsersController.prototype, "getUser", null);
     __decorate([
@@ -125,7 +125,8 @@ var UsersController = /** @class */ (function (_super) {
         __metadata("design:returntype", Promise)
     ], UsersController.prototype, "createUser", null);
     UsersController = __decorate([
-        (0, tsoa_1.Route)("users")
+        (0, tsoa_1.Route)("users"),
+        (0, tsoa_1.Tags)("User")
     ], UsersController);
     return UsersController;
 }(tsoa_1.Controller));

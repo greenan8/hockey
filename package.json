@@ -10,6 +10,7 @@
     "nodemon": "^2.0.15",
     "ts-node": "^10.7.0",
     "tsc-alias": "^1.6.6",
+    "tsconfig-paths": "^3.14.1",
     "typescript": "4.5.2"
   },
   "dependencies": {
@@ -25,9 +26,12 @@
     "typeorm": "0.3.6"
   },
   "scripts": {
-    "build": "tsoa spec-and-routes && tsc && tsc-alias",
-    "serve:dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
-    "serve": "node dist/index.js",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "cp-swagger": "cp ./src/spec/swagger.json ./dist/spec/swagger.json && cp ./src/spec/swagger.html ./dist/spec/swagger.html",
+    "build": "tsoa spec-and-routes && tsc && npm run cp-swagger",
+    "serve": "ts-node -r tsconfig-paths/register dist/index.js",
+    "serve:dev": "nodemon",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
   }
 }

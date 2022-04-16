@@ -9,10 +9,15 @@ var runtime_1 = require("@tsoa/runtime");
 var UserController_1 = require("./../controllers/UserController");
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 var models = {
-    "User": {
+    "uuid": {
+        "dataType": "refAlias",
+        "type": { "dataType": "string", "validators": { "pattern": { "value": "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}" } } },
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "UserResponse": {
         "dataType": "refObject",
         "properties": {
-            "id": { "dataType": "double", "required": true },
+            "id": { "ref": "uuid", "required": true },
             "firstName": { "dataType": "string", "required": true },
             "lastName": { "dataType": "string", "required": true },
             "age": { "dataType": "double", "required": true },
@@ -40,7 +45,7 @@ function RegisterRoutes(app) {
     // ###########################################################################################################
     app.get('/users/:id', function UsersController_getUser(request, response, next) {
         var args = {
-            id: { "in": "path", "name": "id", "required": true, "dataType": "double" },
+            id: { "in": "path", "name": "id", "required": true, "ref": "uuid" },
         };
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         var validatedArgs = [];

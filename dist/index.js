@@ -38,12 +38,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var bodyParser = require("body-parser");
-var DataSource_1 = require("./data/DataSource");
-var User_1 = require("./data/entities/User");
-var routes_1 = require("./spec/routes");
+var DataSource_1 = require("data/DataSource");
+var User_1 = require("data/entities/User");
+var routes_1 = require("spec/routes");
 var path = require("path");
 var helmet_1 = require("helmet");
 var cors = require("cors");
+var morgan = require("morgan");
 var express_rate_limit_1 = require("express-rate-limit");
 DataSource_1.DataSource.initialize()
     .then(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -54,7 +55,10 @@ DataSource_1.DataSource.initialize()
                 app = express();
                 // use middlewares
                 app.use(bodyParser.json());
-                app.use((0, helmet_1.default)());
+                app.use((0, helmet_1.default)({
+                    contentSecurityPolicy: false, // TODO: figure out how to allow script from unpkg
+                }));
+                app.use(morgan("dev"));
                 app.use(cors());
                 app.use((0, express_rate_limit_1.default)({
                     windowMs: 15 * 60 * 1000,
@@ -68,6 +72,14 @@ DataSource_1.DataSource.initialize()
                     return __generator(this, function (_a) {
                         fileDirectory = path.resolve(__dirname, ".", "spec/");
                         res.sendFile("swagger.json", { root: fileDirectory });
+                        return [2 /*return*/];
+                    });
+                }); });
+                app.get("/swagger", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                    var fileDirectory;
+                    return __generator(this, function (_a) {
+                        fileDirectory = path.resolve(__dirname, ".", "spec/");
+                        res.sendFile("swagger.html", { root: fileDirectory });
                         return [2 /*return*/];
                     });
                 }); });

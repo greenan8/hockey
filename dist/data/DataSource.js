@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataSource = void 0;
 require("reflect-metadata");
 var typeorm_1 = require("typeorm");
-var User_1 = require("../data/entities/User");
+var User_1 = require("data/entities/User");
 exports.DataSource = new typeorm_1.DataSource({
     type: "postgres",
     host: "localhost",

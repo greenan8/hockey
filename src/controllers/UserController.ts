@@ -7,25 +7,28 @@ import {
   Query,
   Route,
   SuccessResponse,
+  Tags,
 } from "tsoa";
 import { User } from "data/entities/User";
-import { getRepository } from "typeorm";
 import { DataSource } from "data/DataSource";
-import { Flat } from "./utilities/Types";
+import { Flat, uuid } from "./utilities/Types";
+
+interface UserResponse extends User {}
 
 interface UserPostBody extends Flat<Omit<User, "id">> {}
 
 @Route("users")
+@Tags("User")
 export class UsersController extends Controller {
   private repository = DataSource.getRepository(User);
 
   @Get("{id}")
-  public async getUser(@Path() id: number): Promise<User> {
+  public async getUser(@Path() id: uuid): Promise<UserResponse> {
     return this.repository.findOneBy({ id: id });
   }
 
   @Get()
-  public async listUsers(): Promise<User[]> {
+  public async listUsers(): Promise<UserResponse[]> {
     return this.repository.find();
   }
 

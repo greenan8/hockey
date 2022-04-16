@@ -1,9 +1,10 @@
+import { integer, uuid } from "controllers/utilities/Types";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: uuid;
 
   @Column()
   firstName: string;

@@ -6,6 +6,7 @@ import { RegisterRoutes } from "spec/routes";
 import path = require("path");
 import helmet from "helmet";
 const cors = require("cors");
+const morgan = require("morgan");
 import rateLimit from "express-rate-limit";
 
 DataSource.initialize()
@@ -15,7 +16,12 @@ DataSource.initialize()
 
     // use middlewares
     app.use(bodyParser.json());
-    app.use(helmet());
+    app.use(
+      helmet({
+        contentSecurityPolicy: false, // TODO: figure out how to allow script from unpkg
+      })
+    );
+    app.use(morgan("dev"));
     app.use(cors());
     app.use(
       rateLimit({
@@ -31,6 +37,11 @@ DataSource.initialize()
     app.get("/swagger.json", async (req, res) => {
       const fileDirectory = path.resolve(__dirname, ".", "spec/");
       res.sendFile("swagger.json", { root: fileDirectory });
+    });
+
+    app.get("/swagger", async (req, res) => {
+      const fileDirectory = path.resolve(__dirname, ".", "spec/");
+      res.sendFile("swagger.html", { root: fileDirectory });
     });
 
     // start express server

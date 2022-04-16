@@ -8,6 +8,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": false,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "resolveJsonModule": true
+  },
+  "ts-node": {
+    "transpileOnly": true
   }
 }
