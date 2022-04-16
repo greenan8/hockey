@@ -14,13 +14,18 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"string","validators":{"pattern":{"value":"[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}"}}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "integer": {
+        "dataType": "refAlias",
+        "type": {"dataType":"integer","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "UserResponse": {
         "dataType": "refObject",
         "properties": {
             "id": {"ref":"uuid","required":true},
             "firstName": {"dataType":"string","required":true},
             "lastName": {"dataType":"string","required":true},
-            "age": {"dataType":"double","required":true},
+            "age": {"ref":"integer","required":true},
         },
         "additionalProperties": false,
     },
@@ -30,7 +35,7 @@ const models: TsoaRoute.Models = {
         "properties": {
             "firstName": {"dataType":"string","required":true},
             "lastName": {"dataType":"string","required":true},
-            "age": {"dataType":"double","required":true},
+            "age": {"ref":"integer","required":true},
         },
         "additionalProperties": false,
     },

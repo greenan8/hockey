@@ -32,7 +32,7 @@ export class UsersController extends Controller {
     return this.repository.find();
   }
 
-  @SuccessResponse("201", "Created") // Custom success response
+  @SuccessResponse("201", "Created")
   @Post()
   public async createUser(@Body() body: UserPostBody): Promise<void> {
     this.setStatus(201);

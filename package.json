@@ -23,7 +23,8 @@
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.13",
     "tsoa": "^3.14.1",
-    "typeorm": "0.3.6"
+    "typeorm": "0.3.6",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "cp-swagger": "cp ./src/spec/swagger.json ./dist/spec/swagger.json && cp ./src/spec/swagger.html ./dist/spec/swagger.html",
