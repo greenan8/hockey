@@ -17,46 +17,66 @@
 				"format": "int32",
 				"description": "A `number` type that resolves as an integer in OpenApi"
 			},
-			"UserResponse": {
+			"ConferenceResponse": {
 				"properties": {
 					"id": {
 						"$ref": "#/components/schemas/uuid"
 					},
-					"firstName": {
-						"type": "string"
-					},
-					"lastName": {
-						"type": "string"
-					},
-					"age": {
+					"sourceId": {
 						"$ref": "#/components/schemas/integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"active": {
+						"type": "boolean"
 					}
 				},
 				"required": [
 					"id",
-					"firstName",
-					"lastName",
-					"age"
+					"sourceId",
+					"name",
+					"active"
 				],
 				"type": "object",
 				"additionalProperties": false
 			},
-			"UserPostBody": {
+			"ConferencePostBody": {
 				"properties": {
-					"firstName": {
-						"type": "string"
-					},
-					"lastName": {
-						"type": "string"
-					},
-					"age": {
+					"sourceId": {
 						"$ref": "#/components/schemas/integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"active": {
+						"type": "boolean"
 					}
 				},
 				"required": [
-					"firstName",
-					"lastName",
-					"age"
+					"sourceId",
+					"name",
+					"active"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ConferencePatchBody": {
+				"properties": {
+					"sourceId": {
+						"$ref": "#/components/schemas/integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"active": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"sourceId",
+					"name",
+					"active"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -72,23 +92,45 @@
 	},
 	"openapi": "3.0.0",
 	"paths": {
-		"/users/{id}": {
+		"/conferences/{id}": {
 			"get": {
-				"operationId": "GetUser",
+				"operationId": "GetConference",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/UserResponse"
+									"$ref": "#/components/schemas/ConferenceResponse"
 								}
 							}
 						}
 					}
 				},
 				"tags": [
-					"User"
+					"Conference"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/uuid"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteConference",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Conference"
 				],
 				"security": [],
 				"parameters": [
@@ -103,9 +145,9 @@
 				]
 			}
 		},
-		"/users": {
+		"/conferences": {
 			"get": {
-				"operationId": "ListUsers",
+				"operationId": "ListConferences",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -113,7 +155,7 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"$ref": "#/components/schemas/UserResponse"
+										"$ref": "#/components/schemas/ConferenceResponse"
 									},
 									"type": "array"
 								}
@@ -122,20 +164,27 @@
 					}
 				},
 				"tags": [
-					"User"
+					"Conference"
 				],
 				"security": [],
 				"parameters": []
 			},
 			"post": {
-				"operationId": "CreateUser",
+				"operationId": "CreateConference",
 				"responses": {
-					"201": {
-						"description": "Created"
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ConferenceResponse"
+								}
+							}
+						}
 					}
 				},
 				"tags": [
-					"User"
+					"Conference"
 				],
 				"security": [],
 				"parameters": [],
@@ -144,7 +193,37 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/UserPostBody"
+								"$ref": "#/components/schemas/ConferencePostBody"
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"operationId": "UpdateConference",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ConferenceResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Conference"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ConferencePatchBody"
 							}
 						}
 					}

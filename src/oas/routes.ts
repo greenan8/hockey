@@ -3,7 +3,7 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { UsersController } from './../controllers/UserController';
+import { ConferenceController } from './../controllers/ConferenceController';
 import * as express from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -19,23 +19,33 @@ const models: TsoaRoute.Models = {
         "type": {"dataType":"integer","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UserResponse": {
+    "ConferenceResponse": {
         "dataType": "refObject",
         "properties": {
             "id": {"ref":"uuid","required":true},
-            "firstName": {"dataType":"string","required":true},
-            "lastName": {"dataType":"string","required":true},
-            "age": {"ref":"integer","required":true},
+            "sourceId": {"ref":"integer","required":true},
+            "name": {"dataType":"string","required":true},
+            "active": {"dataType":"boolean","required":true},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UserPostBody": {
+    "ConferencePostBody": {
         "dataType": "refObject",
         "properties": {
-            "firstName": {"dataType":"string","required":true},
-            "lastName": {"dataType":"string","required":true},
-            "age": {"ref":"integer","required":true},
+            "sourceId": {"ref":"integer","required":true},
+            "name": {"dataType":"string","required":true},
+            "active": {"dataType":"boolean","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ConferencePatchBody": {
+        "dataType": "refObject",
+        "properties": {
+            "sourceId": {"ref":"integer","required":true},
+            "name": {"dataType":"string","required":true},
+            "active": {"dataType":"boolean","required":true},
         },
         "additionalProperties": false,
     },
@@ -50,9 +60,9 @@ export function RegisterRoutes(app: express.Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
-        app.get('/users/:id',
+        app.get('/conferences/:id',
 
-            function UsersController_getUser(request: any, response: any, next: any) {
+            function ConferenceController_getConference(request: any, response: any, next: any) {
             const args = {
                     id: {"in":"path","name":"id","required":true,"ref":"uuid"},
             };
@@ -63,19 +73,19 @@ export function RegisterRoutes(app: express.Router) {
             try {
                 validatedArgs = getValidatedArgs(args, request, response);
 
-                const controller = new UsersController();
+                const controller = new ConferenceController();
 
 
-              const promise = controller.getUser.apply(controller, validatedArgs as any);
+              const promise = controller.getConference.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/users',
+        app.get('/conferences',
 
-            function UsersController_listUsers(request: any, response: any, next: any) {
+            function ConferenceController_listConferences(request: any, response: any, next: any) {
             const args = {
             };
 
@@ -85,21 +95,21 @@ export function RegisterRoutes(app: express.Router) {
             try {
                 validatedArgs = getValidatedArgs(args, request, response);
 
-                const controller = new UsersController();
+                const controller = new ConferenceController();
 
 
-              const promise = controller.listUsers.apply(controller, validatedArgs as any);
+              const promise = controller.listConferences.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/users',
+        app.post('/conferences',
 
-            function UsersController_createUser(request: any, response: any, next: any) {
+            function ConferenceController_createConference(request: any, response: any, next: any) {
             const args = {
-                    body: {"in":"body","name":"body","required":true,"ref":"UserPostBody"},
+                    body: {"in":"body","name":"body","required":true,"ref":"ConferencePostBody"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -108,10 +118,56 @@ export function RegisterRoutes(app: express.Router) {
             try {
                 validatedArgs = getValidatedArgs(args, request, response);
 
-                const controller = new UsersController();
+                const controller = new ConferenceController();
 
 
-              const promise = controller.createUser.apply(controller, validatedArgs as any);
+              const promise = controller.createConference.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.patch('/conferences',
+
+            function ConferenceController_updateConference(request: any, response: any, next: any) {
+            const args = {
+                    body: {"in":"body","name":"body","required":true,"ref":"ConferencePatchBody"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ConferenceController();
+
+
+              const promise = controller.updateConference.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.delete('/conferences/:id',
+
+            function ConferenceController_deleteConference(request: any, response: any, next: any) {
+            const args = {
+                    id: {"in":"path","name":"id","required":true,"ref":"uuid"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new ConferenceController();
+
+
+              const promise = controller.deleteConference.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
