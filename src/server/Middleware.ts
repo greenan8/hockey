@@ -2,7 +2,8 @@ import { Express } from "express"
 import * as bodyParser from "body-parser"
 import helmet from "helmet"
 import * as cors from "cors"
-import * as morgan from "morgan"
+import pino from "pino-http"
+
 import rateLimit from "express-rate-limit"
 
 export class Middleware {
@@ -13,7 +14,18 @@ export class Middleware {
                 contentSecurityPolicy: false, // TODO: figure out how to allow script from unpkg
             })
         )
-        app.use(morgan("dev"))
+        app.use(
+            pino({
+                name: "app",
+                transport: {
+                    target: "pino-pretty",
+                    options: {
+                        colorize: true,
+                        singleLine: true,
+                    },
+                },
+            })
+        )
         app.use(cors())
         app.use(
             rateLimit({

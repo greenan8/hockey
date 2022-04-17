@@ -80,6 +80,82 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"DivisionResponse": {
+				"properties": {
+					"id": {
+						"$ref": "#/components/schemas/uuid"
+					},
+					"sourceId": {
+						"$ref": "#/components/schemas/integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"active": {
+						"type": "boolean"
+					},
+					"conferenceId": {
+						"$ref": "#/components/schemas/uuid"
+					}
+				},
+				"required": [
+					"id",
+					"sourceId",
+					"name",
+					"active",
+					"conferenceId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DivisionPostBody": {
+				"properties": {
+					"sourceId": {
+						"$ref": "#/components/schemas/integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"active": {
+						"type": "boolean"
+					},
+					"conferenceId": {
+						"$ref": "#/components/schemas/uuid"
+					}
+				},
+				"required": [
+					"sourceId",
+					"name",
+					"active",
+					"conferenceId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"DivisionPatchBody": {
+				"properties": {
+					"sourceId": {
+						"$ref": "#/components/schemas/integer"
+					},
+					"name": {
+						"type": "string"
+					},
+					"active": {
+						"type": "boolean"
+					},
+					"conferenceId": {
+						"$ref": "#/components/schemas/uuid"
+					}
+				},
+				"required": [
+					"sourceId",
+					"name",
+					"active",
+					"conferenceId"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -224,6 +300,144 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/ConferencePatchBody"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/divisions/{id}": {
+			"get": {
+				"operationId": "GetDivision",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DivisionResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Division"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/uuid"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteDivision",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Division"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/uuid"
+						}
+					}
+				]
+			}
+		},
+		"/divisions": {
+			"get": {
+				"operationId": "ListDivisions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/DivisionResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Division"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateDivision",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DivisionResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Division"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DivisionPostBody"
+							}
+						}
+					}
+				}
+			},
+			"patch": {
+				"operationId": "UpdateDivision",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DivisionResponse"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Division"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DivisionPatchBody"
 							}
 						}
 					}

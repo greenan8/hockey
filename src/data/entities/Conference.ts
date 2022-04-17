@@ -1,5 +1,6 @@
 import { integer, uuid } from "controllers/utilities/Types"
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Division } from "./Division"
 
 @Entity()
 export class Conference {
@@ -14,4 +15,8 @@ export class Conference {
 
     @Column()
     active: boolean
+
+    @OneToMany(() => Division, (division) => division.conference)
+    @JoinColumn()
+    divisions: Division
 }

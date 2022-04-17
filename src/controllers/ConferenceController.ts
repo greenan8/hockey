@@ -3,11 +3,11 @@ import { DataSource } from "data/ormconfig"
 import { Flat, uuid } from "./utilities/Types"
 import { Conference } from "data/entities/Conference"
 
-interface ConferenceResponse extends Flat<Conference> {}
+interface ConferenceResponse extends Flat<Omit<Conference, "divisions">> {}
 
-interface ConferencePostBody extends Flat<Omit<Conference, "id">> {}
+interface ConferencePostBody extends Flat<Omit<ConferenceResponse, "id">> {}
 
-interface ConferencePatchBody extends Flat<Omit<Conference, "id">> {}
+interface ConferencePatchBody extends Flat<Omit<ConferenceResponse, "id">> {}
 
 @Route("conferences")
 @Tags("Conference")
