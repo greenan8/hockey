@@ -30,9 +30,17 @@
   </head>
   <body>
     <elements-api
+      id="docs"
       apiDescriptionUrl="http://localhost:3000/swagger.json"
       router="hash"
       layout="sidebar"
     />
+    <script>
+      (async () => {
+        const docs = document.getElementById("docs");
+        const text = await fetch("/swagger.json").then((res) => res.text());
+        docs.apiDescriptionDocument = text;
+      })();
+    </script>
   </body>
 </html>

@@ -1,13 +1,13 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import { DataSource } from "data/DataSource";
-import { User } from "data/entities/User";
-import { RegisterRoutes } from "spec/routes";
+import { RegisterRoutes } from "oas/routes";
 import path = require("path");
 import helmet from "helmet";
-const cors = require("cors");
-const morgan = require("morgan");
+const cors = require("cors"); // eslint-disable-line
+const morgan = require("morgan"); // eslint-disable-line
 import rateLimit from "express-rate-limit";
+import "fetch-config";
 
 DataSource.initialize()
   .then(async () => {
@@ -46,22 +46,6 @@ DataSource.initialize()
 
     // start express server
     app.listen(3000);
-
-    // insert new users for test
-    await DataSource.manager.save(
-      DataSource.manager.create(User, {
-        firstName: "Timber",
-        lastName: "Saw",
-        age: 27,
-      })
-    );
-    await DataSource.manager.save(
-      DataSource.manager.create(User, {
-        firstName: "Phantom",
-        lastName: "Assassin",
-        age: 24,
-      })
-    );
 
     console.log(
       "Express server has started on port 3000. Open http://localhost:3000/users to see results"
