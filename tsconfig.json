@@ -9,9 +9,11 @@
     "experimentalDecorators": true,
     "sourceMap": false,
     "baseUrl": "src",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
   "ts-node": {
     "transpileOnly": true
-  }
+  },
+  "exclude": ["node_modules"]
 }

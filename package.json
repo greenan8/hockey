@@ -10,6 +10,7 @@
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "nodemon": "^2.0.15",
     "openapi-typescript": "^5.2.0",
     "openapi-typescript-fetch": "^1.1.2",
@@ -29,17 +30,21 @@
     "reflect-metadata": "^0.1.13",
     "tsoa": "^3.14.1",
     "typeorm": "0.3.6",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "winston": "^3.7.2"
   },
   "scripts": {
     "cp-oas": "cp ./src/oas/oas.json ./dist/oas/oas.json && cp ./src/oas/oas.html ./dist/oas/oas.html",
-    "build": "tsoa spec-and-routes && tsc && npm run cp-swagger",
+    "build": "tsoa spec-and-routes && tsc && npm run cp-oas",
     "serve": "ts-node -r tsconfig-paths/register dist/index.js",
     "serve-dev": "nodemon",
     "lint": "eslint . --ext .ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
-    "nhl-client:build": "openapi-typescript ./src/features/clients/nhl/nhl.oas.json --output ./src/features/clients/nhl/nhl.generated.ts"
+    "nhl-client:build": "openapi-typescript ./src/features/clients/nhl/nhl.oas.json --output ./src/features/clients/nhl/nhl.generated.ts",
+    "migration:generate": "./scripts/migration-generate.sh",
+    "migration:up": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:run -d src/data/ormconfig.ts",
+    "migration:down": "./node_modules/.bin/ts-node -r tsconfig-paths/register ./node_modules/.bin/typeorm migration:revert -d src/data/ormconfig.ts"
   }
 }

@@ -4,16 +4,15 @@ import {
   Get,
   Path,
   Post,
-  Query,
   Route,
   SuccessResponse,
   Tags,
 } from "tsoa";
 import { User } from "data/entities/User";
-import { DataSource } from "data/DataSource";
+import { DataSource } from "data/ormconfig";
 import { Flat, uuid } from "./utilities/Types";
 
-interface UserResponse extends User {}
+interface UserResponse extends Flat<User> {}
 
 interface UserPostBody extends Flat<Omit<User, "id">> {}
 

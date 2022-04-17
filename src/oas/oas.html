@@ -29,16 +29,11 @@
     </style>
   </head>
   <body>
-    <elements-api
-      id="docs"
-      apiDescriptionUrl="http://localhost:3000/swagger.json"
-      router="hash"
-      layout="sidebar"
-    />
+    <elements-api id="docs" router="hash" layout="sidebar" />
     <script>
       (async () => {
         const docs = document.getElementById("docs");
-        const text = await fetch("/swagger.json").then((res) => res.text());
+        const text = await fetch("/oas.json").then((res) => res.text());
         docs.apiDescriptionDocument = text;
       })();
     </script>
