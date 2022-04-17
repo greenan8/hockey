@@ -148,12 +148,6 @@
 						"$ref": "#/components/schemas/uuid"
 					}
 				},
-				"required": [
-					"sourceId",
-					"name",
-					"active",
-					"conferenceId"
-				],
 				"type": "object",
 				"additionalProperties": false
 			}
@@ -321,6 +315,7 @@
 						}
 					}
 				},
+				"description": "Returns a `division` matching the provided `id`",
 				"tags": [
 					"Division"
 				],
@@ -336,6 +331,46 @@
 					}
 				]
 			},
+			"patch": {
+				"operationId": "UpdateDivision",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/DivisionResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "Updates an existing `division` record",
+				"tags": [
+					"Division"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/uuid"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DivisionPatchBody"
+							}
+						}
+					}
+				}
+			},
 			"delete": {
 				"operationId": "DeleteDivision",
 				"responses": {
@@ -343,6 +378,7 @@
 						"description": "No content"
 					}
 				},
+				"description": "Deletes a `division` matching the provided `id`",
 				"tags": [
 					"Division"
 				],
@@ -377,11 +413,29 @@
 						}
 					}
 				},
+				"description": "Returns a list of `divisions` matching the provided query parameters",
 				"tags": [
 					"Division"
 				],
 				"security": [],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "query",
+						"name": "skip",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/integer"
+						}
+					},
+					{
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"$ref": "#/components/schemas/integer"
+						}
+					}
+				]
 			},
 			"post": {
 				"operationId": "CreateDivision",
@@ -397,6 +451,7 @@
 						}
 					}
 				},
+				"description": "Create a new `division` record",
 				"tags": [
 					"Division"
 				],
@@ -408,36 +463,6 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/DivisionPostBody"
-							}
-						}
-					}
-				}
-			},
-			"patch": {
-				"operationId": "UpdateDivision",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/DivisionResponse"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Division"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/DivisionPatchBody"
 							}
 						}
 					}

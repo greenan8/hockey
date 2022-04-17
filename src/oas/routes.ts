@@ -78,10 +78,10 @@ const models: TsoaRoute.Models = {
     "DivisionPatchBody": {
         "dataType": "refObject",
         "properties": {
-            "sourceId": {"ref":"integer","required":true},
-            "name": {"dataType":"string","required":true},
-            "active": {"dataType":"boolean","required":true},
-            "conferenceId": {"ref":"uuid","required":true},
+            "sourceId": {"ref":"integer"},
+            "name": {"dataType":"string"},
+            "active": {"dataType":"boolean"},
+            "conferenceId": {"ref":"uuid"},
         },
         "additionalProperties": false,
     },
@@ -237,6 +237,8 @@ export function RegisterRoutes(app: express.Router) {
 
             function DivisionController_listDivisions(request: any, response: any, next: any) {
             const args = {
+                    skip: {"default":0,"in":"query","name":"skip","ref":"integer"},
+                    limit: {"default":20,"in":"query","name":"limit","ref":"integer"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -278,10 +280,11 @@ export function RegisterRoutes(app: express.Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.patch('/divisions',
+        app.patch('/divisions/:id',
 
             function DivisionController_updateDivision(request: any, response: any, next: any) {
             const args = {
+                    id: {"in":"path","name":"id","required":true,"ref":"uuid"},
                     body: {"in":"body","name":"body","required":true,"ref":"DivisionPatchBody"},
             };
 
