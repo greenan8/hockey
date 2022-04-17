@@ -22,6 +22,7 @@ export class Middleware {
                     options: {
                         colorize: true,
                         singleLine: true,
+                        ignore: "pid,hostname",
                     },
                 },
             })
