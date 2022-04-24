@@ -3,6 +3,7 @@ import { DataSource } from "data/ormconfig"
 import { Flat, integer, uuid } from "./utilities/Types"
 import { Division } from "data/entities/Division"
 
+// TODO: Use `Pick` or `Omit` to control what is publicly exposed
 interface DivisionResponse extends Flat<Omit<Division, "conference">> {}
 
 interface DivisionPostBody extends Flat<Omit<DivisionResponse, "id">> {}

@@ -1,0 +1,68 @@
+import { Body, Controller, Delete, Get, Patch, Path, Post, Query, Route, Tags } from "tsoa"
+import { DataSource } from "data/ormconfig"
+import { Flat, integer, uuid } from "./utilities/Types"
+import { {{upper name}} } from "data/entities/{{upper name}}"
+
+// TODO: Use `Pick` or `Omit` to control what is publicly exposed
+interface {{upper name}}Response extends Flat<Pick<{{upper name}}, "id">> {}
+
+interface {{upper name}}PostBody extends Flat<Omit<{{upper name}}Response, "id">> {}
+
+interface {{upper name}}PatchBody extends Partial<{{upper name}}PostBody> {}
+
+@Route("{{lower name}}s")
+@Tags("{{upper name}}")
+export class {{upper name}}Controller extends Controller {
+    private repository = DataSource.getRepository({{upper name}})
+    {{#if (includes "GET" operations)}}
+    
+    /**
+     * Returns a `{{lower name}}` matching the provided `id`
+     */
+    @Get("{id}")
+    public async get{{upper name}}(@Path() id: uuid): Promise<{{upper name}}Response> {
+        return this.repository.findOneBy({ id })
+    }
+    {{/if}}
+    {{#if (includes "LIST" operations)}}
+
+    /**
+     * Returns a list of `{{lower name}}s` matching the provided query parameters
+     */
+    @Get()
+    public async list{{upper name}}s(@Query() skip: integer = 0, @Query() limit: integer = 20): Promise<{{upper name}}Response[]> {
+        return this.repository.find({ skip, take: Math.min(limit, 20) })
+    }
+    {{/if}}
+    {{#if (includes "POST" operations)}}
+
+    /**
+     * Create a new `{{lower name}}` record
+     */
+    @Post()
+    public async create{{upper name}}(@Body() body: {{upper name}}PostBody): Promise<{{upper name}}Response> {
+        return await this.repository.save(body)
+    }
+    {{/if}}
+    {{#if (includes "PATCH" operations)}}
+
+    /**
+     * Updates an existing `{{lower name}}` record
+     */
+    @Patch("{id}")
+    public async update{{upper name}}(@Path() id: uuid, @Body() body: {{upper name}}PatchBody): Promise<{{upper name}}Response> {
+        await this.repository.save({ id, ...body })
+        return this.repository.findOneBy({ id })
+    }
+    {{/if}}
+    {{#if (includes "DELETE" operations)}}
+
+    /**
+     * Deletes a `{{lower name}}` matching the provided `id`
+     */
+    @Delete("{id}")
+    public async delete{{upper name}}(@Path() id: uuid): Promise<void> {
+        await this.repository.delete({ id: id })
+    }
+    {{/if}}
+}

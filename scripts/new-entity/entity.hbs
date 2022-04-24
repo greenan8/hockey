@@ -1,0 +1,13 @@
+import { uuid } from "controllers/utilities/Types"
+import { {{#if columns.[0]}}Column,{{/if}}Entity, PrimaryGeneratedColumn } from "typeorm"
+
+@Entity()
+export class {{upper name}} {
+    @PrimaryGeneratedColumn("uuid")
+    id: uuid
+    {{#each columns}}
+
+    @Column()
+    {{lower this}}: unknown
+    {{/each}}
+}
