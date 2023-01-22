@@ -3,7 +3,7 @@ import { Conference } from "./entities/Conference"
 import { Division } from "./entities/Division"
 import { DataSource } from "./ormconfig"
 
-export class Populate {
+export class PopulateFixtures {
     public static async run() {
         await this.fetchConferences()
         await this.fetchDivisions()
